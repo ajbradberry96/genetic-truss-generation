@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.params=r
+comment0.target=TrussGenerator(java.util.Random)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ TrussGenerator\r\n
+comment1.params=
+comment1.target=Truss\ generateRandomTruss()
+comment1.text=\r\n\ Generates\ a\ random,\ statically-determined\ truss\r\n\ @return\ A\ random\ truss\r\n
+comment2.params=parent
+comment2.target=Truss\ mutateTruss(Truss)
+comment3.params=members\ j1\ j2\ support
+comment3.target=boolean\ legalMember(java.util.ArrayList,\ Joint,\ Joint,\ Joint)
+comment3.text=\r\n\ Returns\ true\ if\ a\ member\ can\ be\ placed\ between\ the\ two\ given\ joints\ legally\r\n\ @param\ members\ List\ of\ current\ members\r\n\ @param\ j1\ First\ joint\r\n\ @param\ j2\ Second\ joint\r\n\ @return\ True\ if\ the\ member\ can\ be\ placed,\ false\ otherwise\r\n
+comment4.params=members\ new_member\ support
+comment4.target=boolean\ legalMemberOverlap(java.util.ArrayList,\ Member,\ Joint)
+comment4.text=\r\n\ Returns\ true\ if\ a\ member\ can\ be\ placed\ between\ the\ two\ given\ joints\ legally\r\n\ @param\ members\ List\ of\ current\ members\r\n\ @param\ j1\ First\ joint\r\n\ @param\ j2\ Second\ joint\r\n\ @return\ True\ if\ the\ member\ can\ be\ placed,\ false\ otherwise\r\n
+comment5.params=member1\ joints
+comment5.target=boolean\ segmentsIntersect(Member,\ Joint[])
+comment5.text=\r\n\ Checks\ to\ see\ if\ two\ line\ segments\ intersect.\r\n\ @param\ member\ representation\ of\ one\ line\ segment\r\n\ @param\ joints\ together\ makes\ the\ second\ line\ segment\r\n\ @return\ true\ if\ the\ line\ segments\ intersect\ or\ are\ the\ same\ line\ segment.\ False\ otherwise.\r\n
+comment6.params=member1\ joints
+comment6.target=boolean\ segmentsIntersectOverlap(Member,\ Joint[])
+comment6.text=\r\n\ Checks\ to\ see\ if\ two\ line\ segments\ intersect.\r\n\ @param\ member\ representation\ of\ one\ line\ segment\r\n\ @param\ joints\ together\ makes\ the\ second\ line\ segment\r\n\ @return\ true\ if\ the\ line\ segments\ intersect\ or\ are\ the\ same\ line\ segment.\ False\ otherwise.\r\n
+comment7.params=joints\ support
+comment7.target=boolean\ segmentAboveSupportJoint(Joint[],\ Joint)
+comment8.params=joints
+comment8.target=boolean\ legal_truss(java.util.ArrayList)
+numComments=9
