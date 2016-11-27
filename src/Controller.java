@@ -12,11 +12,17 @@ import java.util.Random;
  */
 public class Controller
 {
+	// The number of trusses in the simulation at any given time
 	private final int NUMBER_OF_TRUSSES = 1000;
+	// List containing all trusses of any given generation
 	private ArrayList<Truss> trusses = new ArrayList<>();
+	// Random number generator for culling and for passing into TrussGenerator
 	private Random r = new Random();
+	// Generator for new trusses and mutator of old trusses
 	private TrussGenerator generator = new TrussGenerator(r);
+	// GUI 
 	private Canvas canvas;
+	// The number of the current generation
 	private int gen;
 	
     public static void main(String[] args){
@@ -37,7 +43,9 @@ public class Controller
     }
     
  
-    
+    /**
+     * Generates the initial population of 1000 random trusses
+     */
     public void generateListOfTrusses(){
     	for(int i = 0; i < NUMBER_OF_TRUSSES; i++){
     		trusses.add(generator.generateRandomTruss());
@@ -47,6 +55,9 @@ public class Controller
     	displayTrusses();
     }
 
+    /**
+     * Steps through a single generation
+     */
 	public void singleGeneration(){
 		ArrayList<Truss> newHalf = replaceHalf();
 		analyzeTrusses(newHalf);
@@ -56,6 +67,11 @@ public class Controller
 		gen++;
     }
 	
+	/**
+	 * Removes half of the current generation of trusses (favoring the better performers) and
+	 * generates their replacements with modified versions of surviving trusses.
+	 * @return The replacements for the trusses that didn't survive this generation.
+	 */
     private ArrayList<Truss> replaceHalf() {
 		// TO
     	ArrayList<Truss> newHalf = new ArrayList<>();
@@ -82,6 +98,9 @@ public class Controller
 		return newHalf;
 	}
     
+    /**
+     * Sorts trusses by their performance ratio. Worst at 0, best at NUMBER_OF_TRUSSES - 1.
+     */
 	@SuppressWarnings("unchecked")
 	private void sortTrusses() {
 		//System.out.println("0 before sorting: " + trusses.get(0).getPerformance_ratio() + "\n999 before sorting: " + trusses.get(999).getPerformance_ratio());
@@ -89,6 +108,10 @@ public class Controller
 		//System.out.println("0 after sorting: " + trusses.get(0).getPerformance_ratio() + "\n999 after sorting: " + trusses.get(999).getPerformance_ratio());
 	}
 	
+	/**
+	 * Calls the analyze method on all trusses to ensure their performance ratio is calculated.
+	 * @param toAnalyze
+	 */
 	private void analyzeTrusses(ArrayList<Truss> toAnalyze) {
 
 		for(Truss truss : toAnalyze){
@@ -96,6 +119,9 @@ public class Controller
 		}
 	}
     
+	/**
+	 * Displays the best, worst, and median trusses on the GUI
+	 */
 	public void displayTrusses() {
 
 		//System.out.println("Best: " + trusses.get(999).getPerformance_ratio());

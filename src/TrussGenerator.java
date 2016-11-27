@@ -9,7 +9,7 @@ import java.util.Collections;
  * @author Andrew Bradberry
  * @version 10/10/2016
  */
-//TODO Add functionality for thickness multiplier for tabs on box beams and regular beams
+//TODO Add additional joints (past 5) by simply adding onto existing truss (both new members belong to new joint)
 public class TrussGenerator
 {
 
@@ -25,6 +25,7 @@ public class TrussGenerator
     
     /**
      * Constructor for objects of class TrussGenerator
+     * @param r Random number generator that this generator uses to mutate etc.
      */
     public TrussGenerator(Random r)
     {
@@ -40,7 +41,7 @@ public class TrussGenerator
 	    	//ArrayLists for construction of Truss
 	        ArrayList<Member> members = new ArrayList<>();
 	        ArrayList<Joint> joints = new ArrayList<>();
-	        //int mutability = r.nextInt(20);
+	        
 	        // supports must be first two Joints, loaded must be third
 	        Joint support_1 = new Joint(new double[] {0,0});
 	        Joint support_2 = new Joint(new double[] {SUPPORT_WIDTH,0});
@@ -95,7 +96,14 @@ public class TrussGenerator
     	}
     }
     
+    /**
+     * Takes in an existing truss and has a random chance of adjusting joint locations, 
+     * beam widths, beam types, and can add additional joints.
+     * @param parent The existing truss to be modified
+     * @return The potentially mutated child of parent
+     */
     public Truss mutateTruss(Truss parent){
+    	// Gets a copy of the parent truss
     	Truss child = parent.getCopy();
     	
     	Iterator<Member> memIt = child.getMembers().iterator();
@@ -186,7 +194,8 @@ public class TrussGenerator
     
     
     /**
-     * Returns true if a member can be placed between the two given joints legally
+     * Returns true if a member can be placed between the two given joints legally. 
+     * Ignores the case where you are replacing an existing member.
      * @param members List of current members
      * @param j1 First joint
      * @param j2 Second joint
@@ -240,6 +249,7 @@ public class TrussGenerator
     
     /**
      * Checks to see if two line segments intersect.
+     * Ignores the case where you are replacing an existing member.
      * @param member representation of one line segment
      * @param joints together makes the second line segment
      * @return true if the line segments intersect or are the same line segment. False otherwise.
@@ -266,6 +276,12 @@ public class TrussGenerator
     	
     }
     
+    /**
+     * If the member to be created falls above the supported joint, return true.
+     * @param joints The joints that the potential new member would have
+     * @param support The loaded joint
+     * @return True if line segment defined by joints goes above the supported joint.
+     */
     private boolean segmentAboveSupportJoint(Joint[] joints, Joint support){
     	double x_0 = joints[0].get_x();
     	double y_0 = joints[0].get_y();
@@ -280,6 +296,11 @@ public class TrussGenerator
     	return false;
     }
     
+    /**
+     * Returns true if analysis at the current stage of program can be completed
+     * @param joints List of joints in the potential new truss
+     * @return True if analysis is possible.
+     */
     private boolean legal_truss(ArrayList<Joint> joints){
     	int num_unfindable = 0;
     	if(joints.get(0).getMembersSize() >= 3) num_unfindable += 1;

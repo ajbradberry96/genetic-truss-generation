@@ -253,6 +253,9 @@ public class Joint
     	coordinates[1] = y;
     }
     
+    /**
+     * @return The numebr of members connected to this joint. 
+     */
     public int getMembersSize(){
     	return members.size();
     }

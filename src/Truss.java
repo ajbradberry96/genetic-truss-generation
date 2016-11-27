@@ -8,11 +8,18 @@ import java.util.ArrayList;
 @SuppressWarnings("rawtypes")
 public class Truss implements Comparable
 {
+	// TODO Add weight field and method.
+	// List of joints. First two are supports, third is loaded joint
     private ArrayList<Joint> joints;
+    // List of members
     private ArrayList<Member> members;
+    // Current load this truss is supporting TODO: Unnecessary?
     private int current_load;
+    // Suppport joints.
     private Joint[] supports;
+    // Loaded joint.
     private Joint loaded_joint;
+    // Weight that this truss can support / weight of this truss
     private double performance_ratio;
     
     /**
@@ -107,6 +114,11 @@ public class Truss implements Comparable
 		return current_load;
 	}
 	
+	/**
+	 * Generate and return a copy of this truss that HAS NOT YET BEEN ANALYZED. 
+	 * For mutation purposes.
+	 * @return A copy of this truss that has not been analyzed. 
+	 */
     public Truss getCopy(){
     	ArrayList<Joint> newJoints = new ArrayList<>();
     	ArrayList<Member> newMembers = new ArrayList<>();
@@ -134,6 +146,9 @@ public class Truss implements Comparable
     	return new Truss(newJoints, newMembers, current_load);
     }
     
+    /**
+     * One truss is greater than another truss when its performance ratio is greater than the other's
+     */
     @Override
     public int compareTo(Object arg0){
     	if(this.performance_ratio > ((Truss)arg0).getPerformance_ratio()) return 1;
@@ -141,6 +156,9 @@ public class Truss implements Comparable
     	else return 0;
     }
     
+    /**
+     * List of all of the members and the weight of the truss
+     */
     public String toString(){
     	String returnString = "";
     	for(Member member : members){
